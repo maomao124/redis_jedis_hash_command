@@ -2,7 +2,9 @@ import org.junit.jupiter.api.*;
 import redis.clients.jedis.Jedis;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
 
 /**
  * Project name(项目名称)：redis_jedis_hash_command
@@ -32,20 +34,32 @@ import java.util.Map;
 
 public class Redis
 {
+    /**
+     * The Jedis.
+     */
     static Jedis jedis;
 
+    /**
+     * Sets up.
+     */
     @BeforeEach
     void setUp()
     {
         System.out.println("----");
     }
 
+    /**
+     * Tear down.
+     */
     @AfterEach
     void tearDown()
     {
         System.out.println("----");
     }
 
+    /**
+     * Before all.
+     */
     @BeforeAll
     static void beforeAll()
     {
@@ -54,6 +68,9 @@ public class Redis
         System.out.println("打开");
     }
 
+    /**
+     * After all.
+     */
     @AfterAll
     static void afterAll()
     {
@@ -61,6 +78,9 @@ public class Redis
         jedis.close();
     }
 
+    /**
+     * Hset.
+     */
     @Test
     void hset()
     {
@@ -76,6 +96,9 @@ public class Redis
         System.out.println(jedis.hset("map1", "key6", "value6"));
     }
 
+    /**
+     * Hget.
+     */
     @Test
     void hget()
     {
@@ -85,6 +108,9 @@ public class Redis
         System.out.println(jedis.hget("map1", "key44"));
     }
 
+    /**
+     * Hget all.
+     */
     @Test
     void hgetAll()
     {
@@ -93,6 +119,9 @@ public class Redis
         System.out.println(jedis.hgetAll("map2"));
     }
 
+    /**
+     * Hdel.
+     */
     @Test
     void hdel()
     {
@@ -104,6 +133,9 @@ public class Redis
         System.out.println(jedis.hdel("map1", "key2", "key3", "key4"));
     }
 
+    /**
+     * Hexists.
+     */
     @Test
     void hexists()
     {
@@ -113,12 +145,18 @@ public class Redis
         System.out.println(jedis.hexists("map1", "key9"));
     }
 
+    /**
+     * Hincrby before.
+     */
     @Test
     void hincrbyBefore()
     {
         System.out.println(jedis.hset("map1", "key7", "5000"));
     }
 
+    /**
+     * Hincrby.
+     */
     @Test
     void hincrby()
     {
@@ -126,6 +164,9 @@ public class Redis
         System.out.println(jedis.hget("map1", "key7"));
     }
 
+    /**
+     * Hincrby float.
+     */
     @Test
     void hincrbyFloat()
     {
@@ -133,4 +174,24 @@ public class Redis
         System.out.println(jedis.hincrByFloat("map1", "key7", -3.78));
     }
 
+    /**
+     * Hlen.
+     */
+    @Test
+    void hlen()
+    {
+        System.out.println(jedis.hlen("map1"));
+        //不存在
+        System.out.println(jedis.hlen("map2"));
+    }
+
+    /**
+     * Hvals.
+     */
+    @Test
+    void hvals()
+    {
+        List<String> list = jedis.hvals("map1");
+        System.out.println(list);
+    }
 }
